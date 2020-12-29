@@ -10,8 +10,13 @@ class Game
 	newGame()
 	{
 		document.getElementById("board").innerHTML = "";
+		var onlycheckbtn = document.createElement("button");
+		onlycheckbtn.addEventListener("click", () => {this.startOnlyWordChecker();});
+		onlycheckbtn.innerHTML = "Nur Worte prüfen";
 		var div = document.getElementById("player");
 		div.innerHTML = "";
+		div.appendChild(onlycheckbtn);
+		div.appendChild(document.createElement("br"));
 		var txt = document.createElement("input");
 		txt.id = "playername";
 		var addPlayerBtn = document.createElement("button");
@@ -50,7 +55,37 @@ class Game
 		this.playerdiv.appendChild(document.createElement("br"));
 		this.update();
 	}
-	
+	startOnlyWordChecker()
+	{
+		this.playerdiv = document.getElementById("player");
+		this.playerdiv.innerHTML = "";
+		var wordin = document.createElement("input");
+		var resp = document.createElement("div");
+		wordin.addEventListener("keyup", (event) => 
+		{
+			if(event.keyCode == 13)
+			{
+				event.preventDefault();
+				var word = wordin.value.toUpperCase().trim();
+				if(words.includes(word))
+				{
+					resp.style.color = "green";
+					resp.innerHTML = word + " ist akzeptabel";
+				}
+				else
+				{
+					resp.style.color = "red";
+					resp.innerHTML = word + " ist NICHT akzeptabel"
+				}
+			wordin.value = "";
+			}
+		});
+		var hinweis = document.createElement("div");
+		hinweis.innerHTML = "Wort eingeben und mit ENTER bestätigen"
+		this.playerdiv.appendChild(hinweis);
+		this.playerdiv.appendChild(wordin);
+		this.playerdiv.appendChild(resp);
+	}
 	update()
 	{
 		if(this.playerindex == -1)
