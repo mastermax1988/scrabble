@@ -5,7 +5,14 @@ class Game
 		this.players = [];
 		this.playindex = -1;
 		this.playercount = -1;
-		this.board = new Board();
+		this.board = new Board(this);
+		this.cellx = -1;
+		this.celly = -1;
+	}
+	cellClicked(x,y) // board is calling this
+	{
+		this.cellx = x;
+		this.celly = y;
 	}
 	newGame()
 	{
@@ -44,6 +51,7 @@ class Game
 		div.appendChild(btn);
 		this.showAllPlayerNames();
 	}
+
 	startNewGame()
 	{
 		this.playerdiv = document.getElementById("player");
@@ -55,6 +63,7 @@ class Game
 		this.playerdiv.appendChild(document.createElement("br"));
 		this.update();
 	}
+
 	startOnlyWordChecker()
 	{
 		this.playerdiv = document.getElementById("player");
@@ -86,6 +95,7 @@ class Game
 		this.playerdiv.appendChild(wordin);
 		this.playerdiv.appendChild(resp);
 	}
+
 	update()
 	{
 		if(this.playerindex == -1)
@@ -94,12 +104,14 @@ class Game
 		this.board.drawBoard();
 		
 	}
+
 	showAllPlayerNames()
 	{
 		document.getElementById("startBtn").disabled = this.players.length<2;
 		document.getElementById("playerlist").innerHTML = this.players.length == 0 ? "Bitte Spieler eintragen!" : "Spieler: " + this.players;
 		document.getElementById("playername").focus();
 	}
+
 	addPlayer(txt)
 	{
 		this.players.push(txt.value);
@@ -107,3 +119,4 @@ class Game
 		this.showAllPlayerNames();
 	}
 }
+

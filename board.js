@@ -1,7 +1,8 @@
 class Board
 {
-	constructor()
+	constructor(game)
 	{
+		this.game = game;
 		this.cellArray = Array(15);
 		for(var i=0;i<15;i++)
 		{
@@ -90,10 +91,14 @@ class Board
 			tr.setAttribute("style", "text-align: center; vertical-align: middle;font-weight:bold; font-size:30px");
 			for(var j=0;j<15;j++)
 			{
+				var thisCell = this.cellArray[i][j];
 				var tcell = document.createElement("td");
 				tcell.setAttribute("width", "40px ");
+				tcell.setAttribute("x", i);
+				tcell.setAttribute("y", j);
+				tcell.addEventListener("click", (e) => {this.game.cellClicked(e.target.attributes.x.value, e.target.attributes.y.value);});
 				tcell.style.backgroundColor = this.cellArray[i][j].getColor();
-				tcell.innerHTML = this.cellArray[i][j].getLetter();
+				tcell.innerHTML = thisCell.getLetter();
 				tr.appendChild(tcell);
 			}
 			table.appendChild(tr);
