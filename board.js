@@ -11,6 +11,10 @@ class Board
 					this.cellArray[i][j] = new Cell(i,j);
 				}
 		}
+		this.initBoardValues();
+	}
+	initBoardValues() //todo make private, when firefox supports it
+	{
 		this.cellArray[0][0].setSpecial(cellTyp.tWord);
 		this.cellArray[7][0].setSpecial(cellTyp.tWord);
 		this.cellArray[14][0].setSpecial(cellTyp.tWord);
@@ -72,8 +76,8 @@ class Board
 		this.cellArray[9][13].setSpecial(cellTyp.tLetter);
 		this.cellArray[13][5].setSpecial(cellTyp.tLetter);
 		this.cellArray[13][9].setSpecial(cellTyp.tLetter);
-		this.drawBoard();
 	}
+
 	drawBoard()
 	{
 		var div = document.getElementById("board");
@@ -83,11 +87,13 @@ class Board
 		{
 			var tr = document.createElement("tr");
 			tr.setAttribute("height", "40px");
+			tr.setAttribute("style", "text-align: center; vertical-align: middle;font-weight:bold; font-size:30px");
 			for(var j=0;j<15;j++)
 			{
 				var tcell = document.createElement("td");
 				tcell.setAttribute("width", "40px ");
 				tcell.style.backgroundColor = this.cellArray[i][j].getColor();
+				tcell.innerHTML = this.cellArray[i][j].getLetter();
 				tr.appendChild(tcell);
 			}
 			table.appendChild(tr);
