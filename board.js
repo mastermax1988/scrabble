@@ -168,7 +168,10 @@ class Board
 						word.addLetter(c);
 					bWord = false;
 					if(word.word.length>1)
+					{
+						word.applyWordmultiplyer();
 						ret.push(word);
+					}
 					continue;
 				}
 				word.addLetter(c);

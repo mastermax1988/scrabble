@@ -5,6 +5,7 @@ class Game
 		this.players = [];
 		this.playerindex = -1;
 		this.playercount = -1;
+		this.playerscore = [];
 		this.board = new Board(this);
 		this.cellx = -1;
 		this.celly = -1;
@@ -63,6 +64,9 @@ class Game
 	{
 		this.playerdiv = document.getElementById("player");
 		this.playerdiv.innerHTML = "";
+		this.scoreboard = document.createElement("div");
+		this.playerdiv.appendChild(this.scoreboard);
+		this.playerdiv.appendChild(document.createElement("br"));
 		this.playerindex = 0;
 		this.playercount = this.players.length;
 		this.currentplayerdiv = document.createElement("div");
@@ -79,6 +83,8 @@ class Game
 		this.playerdiv.appendChild(this.btnInsertH);
 		this.playerdiv.appendChild(this.btnInsertV);
 		this.playerdiv.appendChild(document.createElement("br"));
+		this.preview = document.createElement("div");
+		this.playerdiv.appendChild(this.preview);	
 		this.freezeBtn = document.createElement("button");
 		this.freezeBtn.innerHTML = "Zug beenden";
 		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
@@ -88,7 +94,7 @@ class Game
 
 	freezeBtnClicked()
 	{
-		this.board.getAllWords();
+		this.addScore();
 		this.board.freezeTempLetters();
 		this.board.clearMarkedCells;
 		this.playerindex = (this.playerindex+1)%this.playercount;
@@ -98,6 +104,18 @@ class Game
 		this.wordinput.value = "";
 		this.wordinput.focus();
 		this.update();
+	}
+
+	addScore()
+	{
+		var allWords = this.board.getAllWords();
+		var score = 0;
+		for(var i=0;i<allWords.length;i++)
+		{
+			if(allWords[i].containsNewLetter)
+				score += allWords[i].score
+		}	
+		this.playerscore[this.playerindex] += score;
 	}
 
 	insertClicked(horizontal)
@@ -144,8 +162,32 @@ class Game
 	{
 		if(this.playerindex == -1)
 			return;
-		this.currentplayerdiv.innerHTML = "Spieler: " + this.players[this.playerindex] + " ist an der Reihe";
+		this.currentplayerdiv.innerHTML = this.players[this.playerindex] + " ist an der Reihe";
 
+		var allWords = this.board.getAllWords();
+		this.preview.innerHTML="";
+		for(var i=0;i<allWords.length;i++)
+		{
+			if(allWords[i].containsNewLetter)
+				this.preview.innerHTML+=allWords[i].word + (words.includes(allWords[i].word)?" (":" (NICHT ERKANNT - ") + allWords[i].score + ")<br>";
+		}
+
+		this.scoreboard.innerHTML = "Scoreboard:";
+		var b = document.createElement("table")
+		for(var i=0;i<this.playercount; i++)
+		{
+			console.log(this.players[i]);
+			var r = document.createElement("tr");
+			var n = document.createElement("td");
+			n.innerHTML = this.players[i];
+			var s = document.createElement("td");
+			s.innerHTML = this.playerscore[i];
+			r.appendChild(n);
+			r.appendChild(s);
+			b.appendChild(r);
+		}
+		this.scoreboard.appendChild(b);
+		
 		this.board.drawBoard();
 		
 	}
@@ -160,6 +202,7 @@ class Game
 	addPlayer(txt)
 	{
 		this.players.push(txt.value);
+		this.playerscore.push(0);
 		txt.value = "";
 		this.showAllPlayerNames();
 	}
