@@ -14,6 +14,56 @@ class Board
 		}
 		this.initBoardValues();
 	}
+
+	insertWord(x,y,horizontal,word)
+	{
+		console.log(word);
+		if(!this.wordInsertable(x,y,horizontal,word))
+			return;
+		for(var i=0;i<word.length;i++)
+			this.cellArray[horizontal ? x : x+i][horizontal ? y+i : y].letter = word[i];
+		console.log("inserted");
+	}
+
+	wordInsertable(x,y,horizontal,word)
+	{
+		if(x<0 || y<0)
+			return false;
+		if(!this.inBound(x,y,horizontal,word.length))
+			return false;
+		console.log("word in bound");
+		for(var i=0;i<word.length;i++)
+		{
+			var l = this.cellArray[horizontal ? x : x+i][horizontal ? y+i : y].letter;
+			if(l !="" && l != word[i])
+				return false;
+		}
+		console.log("word insertable");
+		return true;
+	}
+
+	inBound(x,y,horizontal,length)
+	{
+		console.log("in Bound " + x + " " + y + " " + length );
+		if(horizontal)
+			return (y + length) <= 15;
+		return (x + length) <= 15;
+	}
+
+	clearTempLetters()
+	{
+		for(var i = 0; i< 15; i++)
+			for(var j = 0; j< 15; j++)
+					this.cellArray[i][j].clearTempLetter();
+	}
+	
+	freezeTempLetters()
+	{
+		for(var i = 0; i< 15; i++)
+			for(var j = 0; j< 15; j++)
+					this.cellArray[i][j].freezeTempLetter();
+	}
+	
 	initBoardValues() //todo make private, when firefox supports it
 	{
 		this.cellArray[0][0].setSpecial(cellTyp.tWord);

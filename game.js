@@ -11,8 +11,8 @@ class Game
 	}
 	cellClicked(x,y) // board is calling this
 	{
-		this.cellx = x;
-		this.celly = y;
+		this.cellx = parseInt(x);
+		this.celly = parseInt(y);
 	}
 	newGame()
 	{
@@ -59,8 +59,25 @@ class Game
 		this.playerindex = 0;
 		this.playercount = this.players.length;
 		this.currentplayerdiv = document.createElement("div");
+		this.wordinput = document.createElement("input");
+		this.btnInsertH = document.createElement("button");
+		this.btnInsertH.innerHTML = "Horizontal";
+		this.btnInsertH.addEventListener("click", (e) => {this.insertClicked(true);});
+		this.btnInsertV = document.createElement("button");
+		this.btnInsertV.innerHTML = "Vertikal";
+		this.btnInsertV.addEventListener("click", (e) => {this.insertClicked(false);});
 		this.playerdiv.appendChild(this.currentplayerdiv);
 		this.playerdiv.appendChild(document.createElement("br"));
+		this.playerdiv.appendChild(this.wordinput);
+		this.playerdiv.appendChild(this.btnInsertH);
+		this.playerdiv.appendChild(this.btnInsertV);
+		this.update();
+	}
+
+	insertClicked(horizontal)
+	{
+		console.log("insert clicked" + horizontal);
+		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.trim().toUpperCase());
 		this.update();
 	}
 
@@ -100,7 +117,8 @@ class Game
 	{
 		if(this.playerindex == -1)
 			return;
-		this.currentplayerdiv.innerHTML = this.players[this.playerindex];
+		this.currentplayerdiv.innerHTML = "Spieler: " + this.players[this.playerindex] + " ist an der Reihe";
+
 		this.board.drawBoard();
 		
 	}

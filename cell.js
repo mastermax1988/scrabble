@@ -8,7 +8,24 @@ class Cell
 		this.wordMultiplyer = 1;
 		this.color = "palegreen";
 		this.letter = "";
+		this.temp = true;
 	}
+
+	clearTempLetter()
+	{
+		if(this.temp)
+			this.letter = "";
+	}
+	
+	freezeTempLetter()
+	{
+		if(this.letter == "" || !this.temp)
+			return;
+		this.temp = false;
+		this.letterMultiplyer = 1;
+		this.wordMultiplyer = 1;
+	}
+
 	setSpecial(s)
 	{
 		switch (s) {
