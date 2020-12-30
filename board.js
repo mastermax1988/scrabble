@@ -136,6 +136,54 @@ class Board
 					this.cellArray[i][j].clearMarkedCell();
 	}
 
+	getAllWords()
+	{
+		var ret = [];
+		for(var i = 0; i<15;i++)
+		{
+			var h = this.getLineWords(i, true);
+			for(var j = 0; j<h.length; j++)
+				ret.push(h[j]);
+			var v = this.getLineWords(i, false);
+			for(var j = 0; j<v.length; j++)
+				ret.push(v[j]);
+		}
+		console.log(ret);
+		return ret;
+	}
+
+	getLineWords(index, horizontal)
+	{
+		var ret = [];
+		var bWord=false;
+		var word = null;
+		for(var i = 0; i< 15;i++)
+		{
+			var c = this.cellArray[horizontal? index:i][horizontal?i:index];
+			if(bWord)
+			{
+				if(c.letter=="" || i==14)
+				{
+					if(i==14 && c.letter!="")
+						word.addLetter(c);
+					bWord = false;
+					if(word.word.length>1)
+						ret.push(word);
+					continue;
+				}
+				word.addLetter(c);
+				continue;
+			}
+			if(c.letter!="")
+			{
+				word = new Word();
+				word.addLetter(c);
+				bWord = true;
+			}
+		}
+		return ret;
+	}
+
 	markCell(x,y)
 	{
 		this.cellArray[x][y].marked = true;

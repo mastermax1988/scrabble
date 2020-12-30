@@ -3,7 +3,7 @@ class Game
 	constructor()
 	{
 		this.players = [];
-		this.playindex = -1;
+		this.playerindex = -1;
 		this.playercount = -1;
 		this.board = new Board(this);
 		this.cellx = -1;
@@ -17,6 +17,7 @@ class Game
 		this.board.clearMarkedCells();
 		this.board.markCell(x,y);
 		this.update();
+		this.wordinput.focus();
 	}
 	
 	
@@ -79,7 +80,7 @@ class Game
 		this.playerdiv.appendChild(this.btnInsertV);
 		this.playerdiv.appendChild(document.createElement("br"));
 		this.freezeBtn = document.createElement("button");
-		this.freezeBtn.innerHTML = "Wort eintragen";
+		this.freezeBtn.innerHTML = "Zug beenden";
 		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
 		this.playerdiv.appendChild(this.freezeBtn);
 		this.update();
@@ -87,8 +88,15 @@ class Game
 
 	freezeBtnClicked()
 	{
+		this.board.getAllWords();
 		this.board.freezeTempLetters();
 		this.board.clearMarkedCells;
+		this.playerindex = (this.playerindex+1)%this.playercount;
+		this.cellx = -1;
+		this.celly = -1;
+		this.board.clearMarkedCells();
+		this.wordinput.value = "";
+		this.wordinput.focus();
 		this.update();
 	}
 
