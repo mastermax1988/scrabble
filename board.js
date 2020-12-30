@@ -128,7 +128,18 @@ class Board
 		this.cellArray[13][5].setSpecial(cellTyp.tLetter);
 		this.cellArray[13][9].setSpecial(cellTyp.tLetter);
 	}
+	
+	clearMarkedCells()
+	{	
+		for(var i = 0; i< 15; i++)
+			for(var j = 0; j< 15; j++)
+					this.cellArray[i][j].clearMarkedCell();
+	}
 
+	markCell(x,y)
+	{
+		this.cellArray[x][y].marked = true;
+	}
 	drawBoard()
 	{
 		var div = document.getElementById("board");
@@ -148,6 +159,7 @@ class Board
 				tcell.setAttribute("y", j);
 				tcell.addEventListener("click", (e) => {this.game.cellClicked(e.target.attributes.x.value, e.target.attributes.y.value);});
 				tcell.style.backgroundColor = this.cellArray[i][j].getColor();
+				tcell.style.color = thisCell.temp ? "gray" : "black";
 				tcell.innerHTML = thisCell.getLetter();
 				tr.appendChild(tcell);
 			}

@@ -9,6 +9,12 @@ class Cell
 		this.color = "palegreen";
 		this.letter = "";
 		this.temp = true;
+		this.marked = false;
+	}
+
+	clearMarkedCell()
+	{
+		this.marked = false;
 	}
 
 	clearTempLetter()
@@ -60,7 +66,7 @@ class Cell
 	}
 	getColor() 
 	{
-		return this.color;
+		return this.marked? "yellow" : this.color;
 	}
 }
 

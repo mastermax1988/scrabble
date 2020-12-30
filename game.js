@@ -9,11 +9,17 @@ class Game
 		this.cellx = -1;
 		this.celly = -1;
 	}
+
 	cellClicked(x,y) // board is calling this
 	{
 		this.cellx = parseInt(x);
 		this.celly = parseInt(y);
+		this.board.clearMarkedCells();
+		this.board.markCell(x,y);
+		this.update();
 	}
+	
+	
 	newGame()
 	{
 		document.getElementById("board").innerHTML = "";
@@ -71,12 +77,25 @@ class Game
 		this.playerdiv.appendChild(this.wordinput);
 		this.playerdiv.appendChild(this.btnInsertH);
 		this.playerdiv.appendChild(this.btnInsertV);
+		this.playerdiv.appendChild(document.createElement("br"));
+		this.freezeBtn = document.createElement("button");
+		this.freezeBtn.innerHTML = "Wort eintragen";
+		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
+		this.playerdiv.appendChild(this.freezeBtn);
+		this.update();
+	}
+
+	freezeBtnClicked()
+	{
+		this.board.freezeTempLetters();
+		this.board.clearMarkedCells;
 		this.update();
 	}
 
 	insertClicked(horizontal)
 	{
 		console.log("insert clicked" + horizontal);
+		this.board.clearTempLetters();
 		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.trim().toUpperCase());
 		this.update();
 	}
