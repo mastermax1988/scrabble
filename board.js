@@ -15,6 +15,18 @@ class Board
 		this.initBoardValues();
 	}
 
+
+	restoreHistory(histboard)
+	{
+		for(var i=0;i<15;i++)
+		{
+			for(var j=0;j<15;j++)
+			{
+				this.cellArray[i][j].restoreHistory(histboard.cellArray[i][j])
+			}
+		}
+	}
+
 	insertWord(x,y,horizontal,word)
 	{
 		console.log(word);

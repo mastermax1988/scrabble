@@ -2,6 +2,7 @@ class Game
 {
 	constructor()
 	{
+		this.history=new History(this);
 		this.players = [];
 		this.playerindex = -1;
 		this.playercount = -1;
@@ -10,7 +11,28 @@ class Game
 		this.cellx = -1;
 		this.celly = -1;
 	}
+	
+	getHistObject()
+	{	
+		var obj = {};
+		obj.playerindex = this.playerindex;
+		obj.playerscore = cloneObj(this.playerscore)
+		obj.cellArray = cloneObj(this.board.cellArray)
+		console.log(obj);
+		return obj;
+	}	
 
+	restoreHistory(histgame)
+	{
+		this.playerindex = histgame.playerindex;
+		this.playerscore = cloneObj(histgame.playerscore);
+		this.board.restoreHistory(histgame);
+		this.cellx = -1;
+		this.celly = -1;
+		this.board.clearMarkedCells();
+		this.update();
+	}
+	
 	cellClicked(x,y) // board is calling this
 	{
 		this.cellx = parseInt(x);
@@ -64,9 +86,9 @@ class Game
 	{
 		this.playerdiv = document.getElementById("player");
 		this.playerdiv.innerHTML = "";
-		this.scoreboard = document.createElement("div");
-		this.playerdiv.appendChild(this.scoreboard);
-		this.playerdiv.appendChild(document.createElement("br"));
+		this.scoreboard = document.getElementById("scoreboard");
+		this.turn = document.getElementById("turn");
+		//this.playerdiv.appendChild(document.createElement("br"));
 		this.playerindex = 0;
 		this.playercount = this.players.length;
 		this.currentplayerdiv = document.createElement("div");
@@ -89,6 +111,8 @@ class Game
 		this.freezeBtn.innerHTML = "Zug beenden";
 		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
 		this.playerdiv.appendChild(this.freezeBtn);
+		this.history.snapshot();
+		this.history.start();
 		this.update();
 	}
 
@@ -103,6 +127,7 @@ class Game
 		this.board.clearMarkedCells();
 		this.wordinput.value = "";
 		this.wordinput.focus();
+		this.history.snapshot();
 		this.update();
 	}
 
@@ -162,7 +187,7 @@ class Game
 	{
 		if(this.playerindex == -1)
 			return;
-		this.currentplayerdiv.innerHTML = this.players[this.playerindex] + " ist an der Reihe";
+		this.turn.innerHTML = this.players[this.playerindex] + " ist an der Reihe";
 
 		var allWords = this.board.getAllWords();
 		this.preview.innerHTML="";

@@ -12,6 +12,16 @@ class Cell
 		this.marked = false;
 	}
 
+	restoreHistory(histcell)
+	{
+		this.letterMultiplyer = histcell.letterMultiplyer;
+		this.wordMultiplyer = histcell.wordMultiplyer;
+		this.color = histcell.color;
+		this.letter = histcell.letter;
+		this.temp = histcell.temp;
+		this.marked = histcell.marked;
+	}
+
 	clearMarkedCell()
 	{
 		this.marked = false;
