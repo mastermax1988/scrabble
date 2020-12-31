@@ -208,16 +208,18 @@ class Board
 		var div = document.getElementById("board");
 		div.innerHTML = '';
 		var table = document.createElement("table");
+		//table.setAttribute("overflow-x", "auto");
+		table.setAttribute("layout", "fixed");
 		for(var i=0;i<15;i++)
 		{
 			var tr = document.createElement("tr");
-			tr.setAttribute("height", "40px");
-			tr.setAttribute("style", "text-align: center; vertical-align: middle;font-weight:bold; font-size:30px");
+			tr.setAttribute("height", scale + "px");
+			tr.setAttribute("style", "text-align: center; vertical-align: middle;font-weight:bold; font-size:" + 0.8*scale + "px");
 			for(var j=0;j<15;j++)
 			{
 				var thisCell = this.cellArray[i][j];
 				var tcell = document.createElement("td");
-				tcell.setAttribute("width", "40px ");
+				tcell.setAttribute("width", scale + "px");
 				tcell.setAttribute("x", i);
 				tcell.setAttribute("y", j);
 				tcell.addEventListener("click", (e) => {this.game.cellClicked(e.target.attributes.x.value, e.target.attributes.y.value);});

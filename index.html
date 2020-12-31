@@ -2,15 +2,16 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Scrabble Zähler</title>
 </head>
 <body style="background-color:black; color:orange; font-weight:bold">
 <h1>Scrabble Zähler</h1>
 <div id="history"></div>
-<div id="scoreboard"></div>
+<div id="board"></div>
 <div id="turn"></div>
 <div id="player"></div>
-<div id="board"></div>
+<div id="scoreboard"></div>
 <script src=history.js></script>
 <script src=cell.js></script>
 <script src=word.js></script>
@@ -18,7 +19,8 @@
 <script src=game.js></script>
 <script src=wordarray.js></script>
 <script src=lettervalue.js></script>
-<script charset="utf-8">
+<script charset="utf-8">		
+var scale = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight*0.6)/15.0;
 	var game = new Game();
 	game.newGame();
 </script>
