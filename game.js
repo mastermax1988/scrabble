@@ -49,10 +49,13 @@ class Game
 		document.getElementById("board").innerHTML = "";
 		var onlycheckbtn = document.createElement("button");
 		onlycheckbtn.addEventListener("click", () => {this.startOnlyWordChecker();});
-		onlycheckbtn.innerHTML = "Nur Worte prüfen";
+		onlycheckbtn.innerHTML = "Nur den Wortchecker ohne Scrabbleblock starten.";
 		var div = document.getElementById("player");
 		div.innerHTML = "";
 		div.appendChild(onlycheckbtn);
+		var hinweis = document.createElement("div");
+		hinweis.innerHTML = "Bitte die Mitspieler in der richtigen Reihenfolge anlegen:";
+		div.appendChild(hinweis);
 		div.appendChild(document.createElement("br"));
 		var txt = document.createElement("input");
 		txt.id = "playername";
