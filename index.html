@@ -4,6 +4,12 @@
 	<meta charset="utf-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Scrabble Zähler</title>
+	<script charset="utf-8">
+	window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        return "Fenster wirklich schließen?";
+    }
+	</script>
 </head>
 <body style="background-color:black; color:orange; font-weight:bold">
 <h1>Scrabbleblock</h1>

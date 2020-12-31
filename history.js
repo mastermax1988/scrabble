@@ -35,6 +35,7 @@ class History
 	{
 		this.snapshot();
 		this.continueBtn.disabled = true;
+		this.game.updateFreezeBtn();
 		document.getElementById("player").hidden = false;
 	}
 	snapshot()

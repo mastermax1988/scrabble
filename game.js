@@ -112,7 +112,7 @@ class Game
 		this.preview = document.createElement("div");
 		this.playerdiv.appendChild(this.preview);	
 		this.freezeBtn = document.createElement("button");
-		this.freezeBtn.innerHTML = this.players[this.playerindex] + ": angezeigtes Wort legen und Zug beenden.";
+		this.updateFreezeBtn();
 		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
 		this.playerdiv.appendChild(this.freezeBtn);
 		this.history.snapshot();
@@ -126,6 +126,7 @@ class Game
 		this.board.freezeTempLetters();
 		this.board.clearMarkedCells;
 		this.playerindex = (this.playerindex+1)%this.playercount;
+		this.updateFreezeBtn();
 		this.cellx = -1;
 		this.celly = -1;
 		this.board.clearMarkedCells();
@@ -133,6 +134,11 @@ class Game
 		this.wordinput.focus();
 		this.history.snapshot();
 		this.update();
+	}
+
+	updateFreezeBtn()
+	{
+		this.freezeBtn.innerHTML = this.players[this.playerindex] + ": angezeigtes Wort legen und Zug beenden.";
 	}
 
 	addScore()
