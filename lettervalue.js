@@ -28,3 +28,4 @@ lettervalue["Z"]=3;
 lettervalue["Ä"]=6;
 lettervalue["Ö"]=8;
 lettervalue["Ü"]=5;
+lettervalue["?"]=0;

@@ -16,7 +16,13 @@ class Word
 		if(cell.temp)
 			this.containsNewLetter = true;
 		this.wordmultiplyer *= cell.wordMultiplyer;
-		this.score += lettervalue[cell.letter] * cell.letterMultiplyer;
+		this.score += this.getLetterValue(cell.letter) * cell.letterMultiplyer;
+	}
+
+	getLetterValue(l)
+	{
+		var v = lettervalue[l];
+		return v == null ? 0: v;
 	}
 
 	applyWordmultiplyer()

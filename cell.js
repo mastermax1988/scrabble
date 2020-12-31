@@ -68,12 +68,14 @@ class Cell
 	{
 		return this.letter;
 	}	
+
 	setSpecialValues(l,w,c)
 	{
 		this.letterMultiplyer = l;
 		this.wordMultiplyer = w;
 		this.color = c;
 	}
+
 	getColor() 
 	{
 		return this.marked? "yellow" : this.color;

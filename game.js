@@ -93,6 +93,7 @@ class Game
 		this.playercount = this.players.length;
 		this.currentplayerdiv = document.createElement("div");
 		this.wordinput = document.createElement("input");
+		this.wordinput.addEventListener("keyup", (e) => {this.wordinKeyup(e);});
 		this.btnInsertH = document.createElement("button");
 		this.btnInsertH.innerHTML = "Horizontal";
 		this.btnInsertH.addEventListener("click", (e) => {this.insertClicked(true);});
@@ -108,7 +109,7 @@ class Game
 		this.preview = document.createElement("div");
 		this.playerdiv.appendChild(this.preview);	
 		this.freezeBtn = document.createElement("button");
-		this.freezeBtn.innerHTML = "Zug beenden";
+		this.freezeBtn.innerHTML = this.players[this.playerindex] + ": angezeigtes Wort legen und Zug beenden.";
 		this.freezeBtn.addEventListener("click", (e) => {this.freezeBtnClicked();});
 		this.playerdiv.appendChild(this.freezeBtn);
 		this.history.snapshot();
@@ -147,7 +148,7 @@ class Game
 	{
 		console.log("insert clicked" + horizontal);
 		this.board.clearTempLetters();
-		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.trim().toUpperCase());
+		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.replace(".","?").trim().toUpperCase());
 		this.update();
 	}
 
@@ -187,14 +188,14 @@ class Game
 	{
 		if(this.playerindex == -1)
 			return;
-		this.turn.innerHTML = this.players[this.playerindex] + " ist an der Reihe";
+		this.turn.innerHTML = this.players[this.playerindex] + " ist an der Reihe. Blankosteine mit '.' oder '?' eingeben.";
 
 		var allWords = this.board.getAllWords();
 		this.preview.innerHTML="";
 		for(var i=0;i<allWords.length;i++)
 		{
 			if(allWords[i].containsNewLetter)
-				this.preview.innerHTML+=allWords[i].word + (words.includes(allWords[i].word)?" (":" (NICHT ERKANNT - ") + allWords[i].score + ")<br>";
+				this.preview.innerHTML+=allWords[i].word + (words.includes(allWords[i].word)?" (":" (NICHT ERKANNT + ") + allWords[i].score + ")<br>";
 		}
 
 		this.scoreboard.innerHTML = "Scoreboard:";

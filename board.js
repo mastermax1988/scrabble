@@ -203,6 +203,7 @@ class Board
 	{
 		this.cellArray[x][y].marked = true;
 	}
+
 	drawBoard()
 	{
 		var div = document.getElementById("board");
