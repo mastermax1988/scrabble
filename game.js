@@ -196,7 +196,7 @@ class Game
 
 	wordCheckRegex(w)
 	{
-		var r = new RegExp(w);
+		var r = new RegExp("^"+w+"$");
 		return words.some(e => r.test(e));
 	}
 
