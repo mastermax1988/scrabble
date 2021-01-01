@@ -158,7 +158,7 @@ class Game
 	{
 		console.log("insert clicked" + horizontal);
 		this.board.clearTempLetters();
-		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.replace(".","?").trim().toUpperCase());
+		this.board.insertWord(this.cellx, this.celly, horizontal, this.wordinput.value.replace("?",".").trim().toUpperCase());
 		this.update();
 	}
 
@@ -174,7 +174,7 @@ class Game
 			{
 				event.preventDefault();
 				var word = wordin.value.toUpperCase().trim();
-				if(words.includes(word))
+				if(this.wordCheckRegex(word))
 				{
 					resp.style.color = "green";
 					resp.innerHTML = word + " ist akzeptabel";
@@ -194,6 +194,12 @@ class Game
 		this.playerdiv.appendChild(resp);
 	}
 
+	wordCheckRegex(w)
+	{
+		var r = new RegExp(w);
+		return words.some(e => r.test(e));
+	}
+
 	update()
 	{
 		if(this.playerindex == -1)
@@ -205,7 +211,7 @@ class Game
 		for(var i=0;i<allWords.length;i++)
 		{
 			if(allWords[i].containsNewLetter)
-				this.preview.innerHTML+=allWords[i].word + (words.includes(allWords[i].word)?" (":" (NICHT ERKANNT + ") + allWords[i].score + ")<br>";
+				this.preview.innerHTML+=allWords[i].word + (this.wordCheckRegex(allWords[i].word)?" (":" (NICHT ERKANNT + ") + allWords[i].score + ")<br>";
 		}
 		var lc = this.board.getNewLetterCount();
 		if(lc == 7)
