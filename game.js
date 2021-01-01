@@ -96,7 +96,6 @@ class Game
 		this.playercount = this.players.length;
 		this.currentplayerdiv = document.createElement("div");
 		this.wordinput = document.createElement("input");
-		this.wordinput.addEventListener("keyup", (e) => {this.wordinKeyup(e);});
 		this.btnInsertH = document.createElement("button");
 		this.btnInsertH.innerHTML = "Horizontal";
 		this.btnInsertH.addEventListener("click", (e) => {this.insertClicked(true);});
@@ -150,6 +149,8 @@ class Game
 			if(allWords[i].containsNewLetter)
 				score += allWords[i].score
 		}	
+		if(this.board.getNewLetterCount() == 7)
+			score +=50;
 		this.playerscore[this.playerindex] += score;
 	}
 
@@ -206,6 +207,12 @@ class Game
 			if(allWords[i].containsNewLetter)
 				this.preview.innerHTML+=allWords[i].word + (words.includes(allWords[i].word)?" (":" (NICHT ERKANNT + ") + allWords[i].score + ")<br>";
 		}
+		var lc = this.board.getNewLetterCount();
+		if(lc == 7)
+			this.preview.innerHTML +="Alle Buchstaben ausgespielt + 50<br>"
+		if(lc > 7)
+			this.preview.innerHTML +="Fehler: mehr als 7 neue Buchstaben<br>"
+			
 
 		this.scoreboard.innerHTML = "Scoreboard:";
 		var b = document.createElement("table")
