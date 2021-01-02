@@ -200,6 +200,11 @@ class Game
 		return words.some(e => r.test(e));
 	}
 
+	blankoList(w)
+	{
+		return words.toString().match(new RegExp(","+w+",","g")).toString().replaceAll(","," ").replaceAll("   "," ");
+	}
+
 	update()
 	{
 		if(this.playerindex == -1)
@@ -210,8 +215,13 @@ class Game
 		this.preview.innerHTML="";
 		for(var i=0;i<allWords.length;i++)
 		{
-			if(allWords[i].containsNewLetter)
-				this.preview.innerHTML+=allWords[i].word + (this.wordCheckRegex(allWords[i].word)?" (":" (NICHT ERKANNT + ") + allWords[i].score + ")<br>";
+			var w = allWords[i]
+			if(w.containsNewLetter)
+			{
+				this.preview.innerHTML+=allWords[i].word + (this.wordCheckRegex(w.word)?" (":" (NICHT ERKANNT + ") + w.score + ")<br>";
+				if(w.word.includes("."))
+					this.preview.innerHTML += this.blankoList(w.word) + "<br>";
+			}
 		}
 		var lc = this.board.getNewLetterCount();
 		if(lc == 7)
