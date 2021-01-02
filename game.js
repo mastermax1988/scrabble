@@ -224,7 +224,6 @@ class Game
 		var b = document.createElement("table")
 		for(var i=0;i<this.playercount; i++)
 		{
-			console.log(this.players[i]);
 			var r = document.createElement("tr");
 			var n = document.createElement("td");
 			n.innerHTML = this.players[i];
@@ -235,7 +234,10 @@ class Game
 			b.appendChild(r);
 		}
 		this.scoreboard.appendChild(b);
+		var lc = document.createElement("div");
+		lc.innerHTML = "Es sind " + this.board.getFrozenLetterCount().toString() + " Steine ausgespielt.";
 		
+		this.scoreboard.appendChild(lc);
 		this.board.drawBoard();
 		
 	}

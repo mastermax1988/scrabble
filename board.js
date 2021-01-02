@@ -162,6 +162,21 @@ class Board
 		return l;
 	}
 
+	getFrozenLetterCount()
+	{
+		var l=0;
+		for(var i=0;i<15;i++)
+		{
+			for(var j=0;j<15;j++)
+			{
+				var c = this.cellArray[i][j];
+				l += (!c.temp && c.letter != "") ? 1 : 0;
+			}
+		}
+		return l;
+
+	}
+
 	getAllWords()
 	{
 		var ret = [];
