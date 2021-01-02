@@ -178,6 +178,8 @@ class Game
 				{
 					resp.style.color = "green";
 					resp.innerHTML = word + " ist akzeptabel";
+					if(word.includes("."))
+						resp.innerHTML += "<br>" + this.blankoList(word);
 				}
 				else
 				{
