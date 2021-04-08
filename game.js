@@ -204,7 +204,8 @@ class Game
 
 	blankoList(w)
 	{
-		return words.toString().replaceAll(",",",,").match(new RegExp(","+w+",","g")).toString().replaceAll(",,"," ").replaceAll(","," ").replaceAll("   "," ");
+		var r = new RegExp("^"+w+"$");
+		return words.filter(e => r.test(e)).toString().replaceAll(",",", ");
 	}
 
 	update()
